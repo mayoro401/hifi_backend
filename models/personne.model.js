@@ -1,21 +1,22 @@
-const { DataTypes } = require("sequelize");
+
+module.exports = (sequelize, Sequelize) => {
 
 const Personne = sequelize.define('Personne', {
     
   nom: {
-    type: DataTypes.STRING,
+    type: Sequelize.STRING,
     allowNull: false,
   },
   prenom: {
-    type: DataTypes.STRING,
+    type: Sequelize.STRING,
     allowNull: false,
   },
   telephone: {
-    type: DataTypes.INTEGER,
+    type: Sequelize.INTEGER,
     allowNull: false,
   },
   email: {
-    type: DataTypes.STRING,
+    type: Sequelize.STRING,
     allowNull: false,
     unique: true,
     validate: {
@@ -23,11 +24,15 @@ const Personne = sequelize.define('Personne', {
     },
   },
   password: {
-    type: DataTypes.STRING,
+    type: Sequelize.STRING,
     allowNull: false,
   },
   profil: {
-    type: DataTypes.ENUM('admin', 'vendeur', 'client'),
+    type: Sequelize.ENUM('admin', 'vendeur', 'client'),
     allowNull: false,
   },
-});
+  
+}
+)
+return Personne;
+};

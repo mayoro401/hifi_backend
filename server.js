@@ -15,7 +15,6 @@ const morgan = require('morgan');
 app.use(morgan('dev'));
 
 
-
 //********************************************* Securite   ********************************************** */
 
 //importation du module cors qui empêche les requêtes faites 
@@ -67,7 +66,7 @@ app.get("/", (req, res) => {
   });
 
 
-//**********************************************  serveur  ********************************************* */
+//********************************************** lancement serveur  ********************************************* */
 
 app.listen(process.env.port || 3000, () => {
     console.log(`Server is running on port ${process.env.port || 3000}.`);
