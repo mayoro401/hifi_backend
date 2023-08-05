@@ -8,8 +8,16 @@ module.exports = {
     createProduit(req, res) {
         console.log(req.body);
         Produit.create(req.body)
-                .then(Produit => {
-                    res.status(200).json(Produit);
+                .then(produit => {
+                  if(produit){
+                    return res.status(201).json({
+                      message: "Le produit a été ajouté avec succés"})
+                  }else{
+                    res.send({
+                      message: "Le produit n'a pas abouti"
+                    })
+                  }
+                    // res.status(200).json(Produit);
                 })
                 .catch(error => { 
                     res.status(500).json(error) 
@@ -51,7 +59,7 @@ module.exports = {
         const idProduit = req.params.id;
         Produit.update(req.body, {where:{ id : idProduit}})
         .then(produit => {
-            if (produit == 1) {
+            if (produit) {
               res.send({
                 message: "Produit  a été mis à jour avec succès."
               });
