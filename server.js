@@ -42,7 +42,12 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 
-
+// app.use((req, res, next) => {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//     res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+//     next();
+//  })
 
 //**********************************************  Base de Donnee  ********************************************* */
 
@@ -50,7 +55,7 @@ app.use(express.urlencoded({extended: true}));
 var db = require('./models');
 
 //connexion a la base de donnee 
-db.sequelize.sync(/* { force: true } */)
+db.sequelize.sync({ force: true } )
     .then(() => {
         console.log("Base de données bien synchronisée.");
     })
@@ -58,12 +63,26 @@ db.sequelize.sync(/* { force: true } */)
         console.log("Echec lors de la synchronisation: " + err.message);
     });
 
-//**********************************************  Routes  ********************************************* */
+
+
+/**********************************************  Routes  ********************************************* */
+
+const ProduitController = require('./routes/produit.route');
+app.use('/produit',ProduitController);
+
+const PersonneController = require('./routes/personne.route');
+app.use('/personne',PersonneController);
+
+ const CategorieController = require('./routes/categorie.route');
+ app.use('/categorie',CategorieController);
+
 
 // simple route
 app.get("/", (req, res) => {
     res.json({ message: "Welcome to mayoro application." });
   });
+
+
 
 
 //********************************************** lancement serveur  ********************************************* */

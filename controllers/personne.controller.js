@@ -1,13 +1,21 @@
 const db = require('../models');
 
-const Personne = dnb.personne;
+const Personne = db.personne;
 module.exports = {
 
     //creer une personne 
     createPerson (req, res) {
         Personne.create(req.body)
             .then(personne =>{
-                res.status(200).json(personne)
+                if(personne){
+                    res.send({
+                        message: ` ${profil} a été enregistré avec succés `
+                    })
+                }else{
+                    res.send({
+                        message: `erreur d'enregistrement du ${profil}`})
+                }
+                // res.status(200).json(personne)
             })
             .catch(error => {
                 res.status(500).json(error)
@@ -29,7 +37,16 @@ module.exports = {
     getClients (req, res){
         Personne.findAll({where: {profil: "client"}})
             .then(client =>{
-                res.status(200).json(client)
+                if(client){
+                    res.send({
+                        message: "voila les clients"
+                    })
+                }else{
+                    res.send({
+                        message: "Impossible de d'afficher les clients"
+                    })
+                }
+                // res.status(200).json(client)
             })
             .catch(err =>{
                 res.status(500).json(err)
@@ -70,7 +87,7 @@ module.exports = {
         const idPerson = req.params.id;
         Personne.destroy({ where:{idPerson} })
             .then(personne => {
-                if ( personne ==1){
+                if (personne){
                     res.send( {
                         message: 'suppressioon réussie'
                     })

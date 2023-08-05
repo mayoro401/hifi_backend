@@ -1,13 +1,14 @@
-module.exports = (sequelize, Sequelize) =>{
+module.exports = (sequelize, Sequelize) => {
 
-    const Categorie = sequelize.define('categorie',{
+    const Categorie = sequelize.define("categorie", {
+      
+        nom: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique : true
 
-        nom_categorie:{
-            type: Sequelize.STRING,
-            allowNull:false,
-        },
-        
-    })
-
+      }
+    });
+  
     return Categorie;
-}
+  };

@@ -1,15 +1,28 @@
-const db = require('../models');
+const db = require('./../models');
 
 const Categorie = db.categorie;
-module.exports ={
 
+
+module.exports ={
+    
     //creation d'une categorie
     createCategorie(req, res){
+        console.log(req.body)
+        
         Categorie.create(req.body)
             .then(categorie => {
-                res.status(200).json(categorie);
+                if(categorie){
+                    res.send({
+                        message:'La catégorie à bien été ajoutée!'
+                    })
+                }else{
+                    res.send({
+                        message:'Erreur lors de l\'ajout'})
+                }
+                // res.status(200).json(categorie);
             })
             .catch(error => {
+                console.log(error)
                 res.status(500).json(error);
             })
     },
@@ -30,9 +43,9 @@ module.exports ={
         const idCategorie = req.params.id;
         Categorie.update(req.body, {where: {id: idCategorie}})
             .then(categorie =>{
-                if(categorie == 1){
+                if(categorie){
                         res.send({
-                            message: 'le categorie a ete supprime avec succes'
+                            message: 'la categorie a été modifié avec succes'
                         })
                 } else {
                     res.send({message: 'aucun changement'})
@@ -50,7 +63,7 @@ module.exports ={
             .then(categorie =>{
                 if (!categorie){
                     res.send({
-                        message: `Impossible de supprimer le categorie avec id=${id}. Peut etre que ce gategorie n'a pas ete trouve!`
+                        message: `Impossible de supprimer la categorie avec id=${id}. Peut etre que ce gategorie n'a pas ete trouve!`
                     })
                 }else{
                     res.send({message:'la categorie est bien supprimée'})

@@ -3,8 +3,10 @@ const Produit = db.produit;
 
 module.exports = {
 
+    
     //creation d'un nouveau produit
     createProduit(req, res) {
+        console.log(req.body);
         Produit.create(req.body)
                 .then(Produit => {
                     res.status(200).json(Produit);
