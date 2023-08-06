@@ -8,7 +8,7 @@ module.exports = (sequelize, Sequelize) => {
         },
         description:{
             type:Sequelize.STRING,
-            allowNull: false,
+            // allowNull: false,
         },
         prix:{
             type:Sequelize.INTEGER,

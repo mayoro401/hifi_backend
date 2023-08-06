@@ -55,7 +55,7 @@ app.use(express.urlencoded({extended: true}));
 var db = require('./models');
 
 //connexion a la base de donnee 
-db.sequelize.sync({ force: true } )
+db.sequelize.sync(/*{ force: true }*/ )
     .then(() => {
         console.log("Base de données bien synchronisée.");
     })

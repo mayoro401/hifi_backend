@@ -9,11 +9,11 @@ module.exports = {
             .then(personne =>{
                 if(personne){
                     res.send({
-                        message: ` ${profil} a été enregistré avec succés `
+                        message: ` la personne a été enregistré avec succés `
                     })
                 }else{
                     res.send({
-                        message: `erreur d'enregistrement du ${profil}`})
+                        message: `erreur d'enregistrement `})
                 }
                 // res.status(200).json(personne)
             })
@@ -38,9 +38,7 @@ module.exports = {
         Personne.findAll({where: {profil: "client"}})
             .then(client =>{
                 if(client){
-                    res.send({
-                        message: "voila les clients"
-                    })
+                    res.send(client)
                 }else{
                     res.send({
                         message: "Impossible de d'afficher les clients"
@@ -57,7 +55,14 @@ module.exports = {
     getVendeurs (req, res) {
         Personne.findAll ({ where :{ profil : "vendeur" }})
             .then(vendeur =>{
-                res.status(200).json(vendeur);
+                if(vendeur){
+                    res.send(vendeur)
+                }else{
+                    res.send({
+                        message: "Impossible de d'afficher les vendeurs"
+                    })
+                }
+                // res.status(200).json(vendeur);
             })
             .catch(err =>{
                 res.status(500).json(err)
@@ -67,11 +72,11 @@ module.exports = {
     //mettre a jour une personne
     updatePerson (req,res ){
         const idPerson = req.params.id;
-        Personne.findOne(req.body, {where: {idPerson : id}})
+        Personne.findOne(req.body, {where: {id : idPerson}})
         .then(personne =>{
-            if (personne ==1){
+            if (personne){
                 res.send({
-                message: `le ${profil} a été bien mis à jour`
+                message: `la personne a été bien mis à jour`
                 })
             }else{
                 res.send({message: "la personne n'existe pas"})
@@ -85,7 +90,7 @@ module.exports = {
     //supprimer une personne    
     deletePerson (req,res ) {
         const idPerson = req.params.id;
-        Personne.destroy({ where:{idPerson} })
+        Personne.destroy({ where:{id:idPerson} })
             .then(personne => {
                 if (personne){
                     res.send( {

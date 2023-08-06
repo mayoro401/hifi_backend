@@ -5,8 +5,9 @@ const ProduitController = require('../controllers/produit.controller');
 
 routes.post('/', ProduitController.createProduit)
 routes.get('/', ProduitController.getAllProduits)
-routes.get('/:id', ProduitController.getProduitById)
 routes.get('/publies', ProduitController.PublishProduit)
+routes.get('/nopublies', ProduitController.NoPublishProduit)
+routes.get('/:id', ProduitController.getProduitById)
 routes.put('/:id', ProduitController.updateProduit)
 routes.delete('/:id', ProduitController.deleteProduit)
 

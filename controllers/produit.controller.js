@@ -34,25 +34,35 @@ module.exports = {
                 res.status(500).json(error)
             })
     },
+    //recuperer les produits publies
+    PublishProduit(req, res){
+      Produit.findAll({ where:{ statu:true}})
+      .then(produit => {
+          res.send(produit)
+        })
+      .catch(err => {
+          res.status(500).send({
+            message:
+              err.message || "Une erreur s'est produite lors de la récupération des produits."
+          })
+      })
+  },
 
-    //recuperer un seul produit
-    getProduitById(req, res) {
-        const idProduit = req.params.id;
-        Produit.findOne({where: {id: idProduit}})
-            .then(Produit =>{
-                if (Produit) {
-                    res.send(Produit);
-                  } else {
-                    res.status(404).send({
-                      message: `Impossible de trouver le produit avec id=${id}.`
-                    });
-            }})
-            .catch(err => {
-                res.status(500).send({
-                    message: "Erreur lors de la récupération du produit avec id=" + id
-                  });
-            })
-    },
+
+  //recuperer les produits non publies
+  NoPublishProduit(req, res){
+    Produit.findAll({ where:{ statu:false}})
+    .then(produit => {
+        res.send(produit)
+      })
+    .catch(err => {
+        res.status(500).send({
+          message:
+            err.message || "Une erreur s'est produite lors de la récupération des produits."
+        })
+    })
+},
+
 
     //mettre a jour un produit
     updateProduit(req,res) {
@@ -65,7 +75,7 @@ module.exports = {
               });
             } else {
               res.send({
-                message: `Impossible de mettre à jour le produit avec id=${id}. Peut-être que le produit n'a pas été trouvé ou que req.body est vide!`
+                message: `Impossible de mettre à jour le produit. Peut-être que le produit n'a pas été trouvé ou que req.body est vide!`
               });
             }
           })
@@ -76,47 +86,56 @@ module.exports = {
 
     //supprimer un produit
     
-    // deleteProduit(req, res) {
-    //     const idProduit = req.params.id;
-    //     Produit.destroy({where:{ id: idProduit}})
-    //         .then(Produit => {
-    //             res.status(200).json(Produit)
-    //         })
-    //         .catch(error => {
-    //             res.status(500).json(error)
-    //         })   
-    // },
-
     deleteProduit(req, res) {
         const idProduit = req.params.id;
-        Produit.destroy({ where: { id: idProduit } })
-        then(produit => {
-            if (!produit) {
-              res.status(404).send({
-                message: `Impossible de supprimer le produit avec id=${id}. Peut etre que ce produit n'a pas ete trouve!`
-              });
-            } else {
-              res.send({
-                message: "Produit a été mis à jour avec succès!"
-              });
-            }
-          })
-            .catch(err => { 
-                res.status(500).json({ status: 'error', message: JSON.stringify(err) }) 
-            });
+        Produit.destroy({where:{ id: idProduit}})
+            .then(Produit => {
+                res.status(200).json(Produit)
+            })
+            .catch(error => {
+                res.status(500).json(error)
+            })   
     },
 
-    //recuperer les produits publies
-    PublishProduit(req, res){
-        Produit.findALl({ where:{statu:true} })
-        .then(Produit => {
-            res.send(Produit);
-          })
-        .catch(err => {
-            res.status(500).send({
-              message:
-                err.message || "Une erreur s'est produite lors de la récupération des produits."
-            })
-        })
-    }
+    // deleteProduit(req, res) {
+    //     const idProduit = req.params.id;
+    //     Produit.destroy({ where: { id: idProduit } })
+    //           .then(produit => {
+    //               if (!produit) {
+    //                 res.send({
+    //                   message: `Impossible de supprimer le produit . Peut etre que ce produit n'a pas ete trouve!`
+    //                 });
+    //               } else {
+    //                 res.send({
+    //                   message: "Produit a été supprimé avec succès!"
+    //                 });
+    //               }
+    //             })
+    //             .catch(err => { 
+    //                 res.status(500).json({ status: 'error', message: JSON.stringify(err) }) 
+    //             });
+    // },
+
+
+        //recuperer un seul produit
+        getProduitById(req, res) {
+          const idProduit = req.params.id;
+          Produit.findOne({where: {id: idProduit}})
+              .then(Produit =>{
+                  if (Produit) {
+                      res.send(Produit)
+                    } else {
+                      res.send({
+                        message: `Impossible de trouver le produit.`
+                      });
+                   }
+              })
+              .catch(err => {
+                  res.status(500).send({
+                      message: "Erreur lors de la récupération du produit " 
+                    });
+              })
+      },
+  
+    
 }
