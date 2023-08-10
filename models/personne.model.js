@@ -14,6 +14,7 @@ const Personne = sequelize.define('Personne', {
   telephone: {
     type: Sequelize.INTEGER,
     allowNull: false,
+    unique: true,
   },
   email: {
     type: Sequelize.STRING,

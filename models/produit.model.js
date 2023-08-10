@@ -17,6 +17,10 @@ module.exports = (sequelize, Sequelize) => {
         statu:{
             type:Sequelize.BOOLEAN,
         },
+        image :{
+            type:Sequelize.TEXT,
+            allowNull: false,
+        },
 
     })
 

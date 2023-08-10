@@ -16,6 +16,18 @@ const sequelize = new Sequelize( dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD,{
     
 });
 
+//*******************************   relation entre les tales  *********************************
+
+//relation entre personne et role
+db.role.belongsToMany( db.personne, {
+    through: "person_role"
+})
+db.personne.belongsToMany( db.role,{
+    through: "person_role"
+})
+
+//relation entre categorie et produit
+db.pro
 
 //notre base de données
 const db = {};
@@ -25,6 +37,7 @@ db.sequelize = sequelize;
 
 //Definir les tables de la base de données
 db.personne = require("../models/personne.model")(sequelize, Sequelize);
+db.role = require("../models/role.model")(sequelize, Sequelize);
 db.produit = require("../models/produit.model")(sequelize, Sequelize);
 db.categorie = require("../models/categorie.model")(sequelize,Sequelize);
 
