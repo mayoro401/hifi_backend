@@ -1,4 +1,4 @@
-module.expports = (sequelize, Sequelize) => {
+module.exports = (sequelize, Sequelize) => {
     
     const Role =sequelize.define("role", {
         nom_role:{

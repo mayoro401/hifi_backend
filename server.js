@@ -2,6 +2,7 @@ require('dotenv').config();
 
 //creation du serveur express
 const express = require('express');
+const cookieSession = require('cookie-session');
 
 //instance pou définir les routes et les middleware.
 const app  = express();
@@ -15,15 +16,30 @@ const morgan = require('morgan');
 app.use(morgan('dev'));
 
 
+//******************************************  Coockie Session  **************************************** */
+//cookie-session aide à stocker les données de session sur le client dans un cookie sans nécessiter
+// de base de données/ressources côté serveur
+
+app.use(
+    cookieSession({
+      name: "mayoro-session",
+      keys: ["COOKIE_SECRET"],      // should use as secret environment variable
+      httpOnly: true,
+    })
+  );
+
+
+
+
 //********************************************* Securite   ********************************************** */
 
 //importation du module cors qui empêche les requêtes faites 
 //depuis un domaine différent du domaine du serveur.
 const cors = require('cors');
-
 //seules les requêtes provenant de 'https://localhost:4200' 
 //sont autorisées à accéder à l'API.
 var corsOption ={
+    credentials: true,
     origin: 'https://localhost:4200'
 };
 //verification de la source des requetes
@@ -55,15 +71,27 @@ app.use(express.urlencoded({extended: true}));
 var db = require('./models');
 
 //connexion a la base de donnee 
-db.sequelize.sync(/*{ force: true }*/ )
+db.sequelize.sync({ /*force: true */})
     .then(() => {
         console.log("Base de données bien synchronisée.");
+        // initial();
     })
     .catch((err) => {
         console.log("Echec lors de la synchronisation: " + err.message);
     });
 
+//initialiser des donnees sur une table 
 
+    // const dbr = require("./models");
+    // const Role = dbr.role;
+  
+    // function initial() {
+    //   Role.create({ id: 1,  nom_role: "client" });
+    //   Role.create({ id: 2, nom_role: "vendeur" });
+    //   Role.create({ id: 3, nom_role: "admin" });
+    // }
+
+//fin d'initialisatioon
 
 /**********************************************  Routes  ********************************************* */
 
@@ -81,6 +109,7 @@ app.use('/personne',PersonneController);
 app.get("/", (req, res) => {
     res.json({ message: "Welcome to mayoro application." });
   });
+
 
 
 

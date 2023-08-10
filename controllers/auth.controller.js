@@ -1,0 +1,1 @@
+//auth.controller.js : gère les actions d'inscription, de connexion et de déconnexion
