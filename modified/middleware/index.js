@@ -3,8 +3,8 @@
 //  les modules authJwt et verifySignUp. Cela rend ces fonctionnalités disponibles 
 //  pour d'autres parties de l'application qui doivent les utiliser.
 
-const authJwt = require('./authJwt.js');
-const verifySignUp = require('./verifySignUp.js');
+const authJwt = require('./authJwt');
+const verifySignUp = require('./verifySignUp');
 
 module.exports = {
     authJwt,

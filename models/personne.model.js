@@ -32,10 +32,10 @@ const Personne = sequelize.define('Personne', {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  // profil: {
-  //   type: Sequelize.ENUM('admin', 'vendeur', 'client'),
-  //   allowNull: false,
-  // },
+  profil: {
+    type: Sequelize.ENUM('admin', 'vendeur', 'client'),
+    allowNull: false,
+  },
   
 }
 )

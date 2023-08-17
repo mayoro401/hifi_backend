@@ -25,7 +25,7 @@ db.sequelize = sequelize;
 db.personne = require("../models/personne.model")(sequelize, Sequelize);
 db.categorie = require("../models/categorie.model")(sequelize, Sequelize);
 db.produit = require("../models/produit.model")(sequelize, Sequelize);
-db.role = require("../models/role.model")(sequelize, Sequelize);
+// db.role = require("../models/role.model")(sequelize, Sequelize);
 
 //*******************************   relation entre les tables  *********************************
 
@@ -34,16 +34,16 @@ db.categorie.hasMany(db.produit);
 db.produit.belongsTo(db.categorie);
 
 // Configuration de la relation one-to-many entre Personne et role
-db.role.belongsToMany(db.personne, {
-  through: "personne_roles",
-});
-db.personne.belongsToMany(db.role, {
-  through: "personne_roles",
-});
+// db.role.belongsToMany(db.personne, {
+//   through: "personne_roles",
+// });
+// db.personne.belongsToMany(db.role, {
+//   through: "personne_roles",
+// });
 
 
 //les valeurs que role peut prendre
-db.ROLES = ["client", "vendeur", "admin"];
+// db.ROLES = ["client", "vendeur", "admin"];
 
 //relation entre categorie et produit
 // db.pro

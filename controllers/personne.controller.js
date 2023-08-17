@@ -108,3 +108,18 @@ module.exports = {
     },
 
 }
+
+exports.allAccess = (req, res)=>{
+    res.status(200).send("public content")
+};
+
+exports.userBoard = (req, res)=>{
+    res.status(200).send("user content")
+}
+exports.vendeurBoard = (req, res)=>{
+    res.status(200).send("vendeur content")
+}
+
+exports.adminBoard = (req, res)=>{
+    res.status(200).send("admin content")
+}

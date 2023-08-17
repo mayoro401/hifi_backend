@@ -57,6 +57,8 @@ module.exports = {
         res.status(500).json(error);
       });
   },
+
+  
   //recuperer les produits publies
   PublishProduit(req, res) {
     Produit.findAll({ where: { statu: true } })

@@ -71,7 +71,7 @@ app.use(express.urlencoded({extended: true}));
 var db = require('./models');
 
 //connexion a la base de donnee 
-db.sequelize.sync({ /*force: true */})
+db.sequelize.sync({ force: true })
     .then(() => {
         console.log("Base de données bien synchronisée.");
         // initial();
@@ -95,6 +95,10 @@ db.sequelize.sync({ /*force: true */})
 
 /**********************************************  Routes  ********************************************* */
 
+// require('./routes/auth.route')(app);
+// require('./routes/personne.route')(app);
+
+
 const ProduitController = require('./routes/produit.route');
 app.use('/produit',ProduitController);
 
@@ -103,6 +107,8 @@ app.use('/personne',PersonneController);
 
  const CategorieController = require('./routes/categorie.route');
  app.use('/categorie',CategorieController);
+
+
 
 
 // simple route
